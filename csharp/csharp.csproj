@@ -62,11 +62,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApprovalTest.cs" />
+    <Compile Include="QualityUpdaterResolver.cs" />
+    <Compile Include="RangeCheckers\DefaultRangeChecker.cs" />
     <Compile Include="GildedRose.cs" />
     <Compile Include="GildedRoseTest.cs" />
+    <Compile Include="QualityUpdaters\AgedBreeUpdater.cs" />
+    <Compile Include="QualityUpdaters\BackstageUpdater.cs" />
+    <Compile Include="QualityUpdaters\ConjuredUpdater.cs" />
+    <Compile Include="QualityUpdaters\DefaultUpdater.cs" />
+    <Compile Include="QualityUpdaters\IQualityUpdater.cs" />
+    <Compile Include="IQualityUpdaterResolver.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QualityUpdaters\SulfurasUpdater.cs" />
+    <Compile Include="RangeCheckers\SulfurasRangeChecker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -10,7 +10,7 @@ namespace csharp
         public void UpdateQuality_SellInNotPassed_QualityDecreasedByOne()
         {
             var items = new List<Item> { new Item { Name = "Some", SellIn = 10, Quality = 10 } };
-            var app = new GildedRose(items);
+            var app = new GildedRose(items, new QualityUpdaterResolver());
             app.UpdateQuality();
 
             Assert.AreEqual(9, items[0].Quality);
@@ -20,7 +20,7 @@ namespace csharp
         public void UpdateQuality_SellInHasPassed_QualityDecreasedByTwo()
         {
             var items = new List<Item> { new Item { Name = "Some", SellIn = 0, Quality = 10 } };
-            var app = new GildedRose(items);
+            var app = new GildedRose(items, new QualityUpdaterResolver());
             app.UpdateQuality();
 
             Assert.AreEqual(8, items[0].Quality);
@@ -30,7 +30,7 @@ namespace csharp
         public void UpdateQuality_QualityIsZero_QualityIsNotDecreased()
         {
             var items = new List<Item> { new Item { Name = "Some", SellIn = 1, Quality = 0 } };
-            var app = new GildedRose(items);
+            var app = new GildedRose(items, new QualityUpdaterResolver());
             app.UpdateQuality();
 
             Assert.AreEqual(0, items[0].Quality);
@@ -40,7 +40,7 @@ namespace csharp
         public void UpdateQuality_QualityIs50_QualityIsNotIncreased()
         {
             var items = new List<Item> { new Item { Name = "Aged Brie", SellIn = 0, Quality = 50 } };
-            var app = new GildedRose(items);
+            var app = new GildedRose(items, new QualityUpdaterResolver());
             app.UpdateQuality();
 
             Assert.AreEqual(50, items[0].Quality);
@@ -50,7 +50,7 @@ namespace csharp
         public void UpdateQuality_NameIsSulfaras_QualityIsAlways80()
         {
             var items = new List<Item> { new Item { Name = "Sulfuras", SellIn = 10, Quality = 0 } };
-            var app = new GildedRose(items);
+            var app = new GildedRose(items, new QualityUpdaterResolver());
             app.UpdateQuality();
 
             Assert.AreEqual(80, items[0].Quality);
@@ -60,7 +60,7 @@ namespace csharp
         public void UpdateQuality_NameIsSulfaras_QualityIsNotMore80()
         {
             var items = new List<Item> { new Item { Name = "Sulfuras", SellIn = 10, Quality = 80 } };
-            var app = new GildedRose(items);
+            var app = new GildedRose(items, new QualityUpdaterResolver());
             app.UpdateQuality();
 
             Assert.AreEqual(80, items[0].Quality);
@@ -70,7 +70,7 @@ namespace csharp
         public void UpdateQuality_NameIsAgedBrie_QualityIncreased()
         {
             var items = new List<Item> { new Item { Name = "Aged Brie", SellIn = 5, Quality = 0 } };
-            var app = new GildedRose(items);
+            var app = new GildedRose(items, new QualityUpdaterResolver());
             app.UpdateQuality();
 
             Assert.AreEqual(1, items[0].Quality);
@@ -80,7 +80,7 @@ namespace csharp
         public void UpdateQuality_NameIsBackstagePasses_QualityIsIncreased()
         {
             var items = new List<Item> { new Item { Name = "Backstage passes", SellIn = 11, Quality = 0 } };
-            var app = new GildedRose(items);
+            var app = new GildedRose(items, new QualityUpdaterResolver());
             app.UpdateQuality();
 
             Assert.AreEqual(1, items[0].Quality);
@@ -90,7 +90,7 @@ namespace csharp
         public void UpdateQuality_NameIsBackstagePassesSellIn10Days_QualityIsIncreasedBy2()
         {
             var items = new List<Item> { new Item { Name = "Backstage passes", SellIn = 10, Quality = 5 } };
-            var app = new GildedRose(items);
+            var app = new GildedRose(items, new QualityUpdaterResolver());
             app.UpdateQuality();
 
             Assert.AreEqual(7, items[0].Quality);
@@ -100,7 +100,7 @@ namespace csharp
         public void UpdateQuality_NameIsBackstagePassesSellIn5Days_QualityIsIncreasedBy3()
         {
             var items = new List<Item> { new Item { Name = "Backstage passes", SellIn = 5, Quality = 5 } };
-            var app = new GildedRose(items);
+            var app = new GildedRose(items, new QualityUpdaterResolver());
             app.UpdateQuality();
 
             Assert.AreEqual(8, items[0].Quality);
@@ -110,7 +110,7 @@ namespace csharp
         public void UpdateQuality_NameIsBackstageSellIn0Days_QualityIsZero()
         {
             var items = new List<Item> { new Item { Name = "Backstage passes", SellIn = 0, Quality = 5 } };
-            var app = new GildedRose(items);
+            var app = new GildedRose(items, new QualityUpdaterResolver());
             app.UpdateQuality();
 
             Assert.AreEqual(0, items[0].Quality);
@@ -120,7 +120,7 @@ namespace csharp
         public void UpdateQuality_NameIsConjured_QualityDegradesBy2()
         {
             var items = new List<Item> { new Item { Name = "Conjured", SellIn = 5, Quality = 5 } };
-            var app = new GildedRose(items);
+            var app = new GildedRose(items, new QualityUpdaterResolver());
             app.UpdateQuality();
 
             Assert.AreEqual(3, items[0].Quality);
@@ -130,7 +130,7 @@ namespace csharp
         public void UpdateQuality_ConjuredAndSellInPassed_QualityDegradesBy4()
         {
             var items = new List<Item> { new Item { Name = "Conjured", SellIn = -1, Quality = 5 } };
-            var app = new GildedRose(items);
+            var app = new GildedRose(items, new QualityUpdaterResolver());
             app.UpdateQuality();
 
             Assert.AreEqual(1, items[0].Quality);
