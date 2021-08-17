@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace csharp
 {
@@ -15,7 +16,12 @@ namespace csharp
 
         public void UpdateQuality()
         {
-            foreach (var item in _items)
+            if (_items == null)
+            {
+                return;
+            }
+
+            foreach (var item in _items.Where(i => i != null))
             {
                 var updater = _qualityUpdaterResolver.Resolve(item);
                 updater.UpdateQuality(item);

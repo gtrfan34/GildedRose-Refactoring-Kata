@@ -11,6 +11,7 @@ namespace csharp
         {
             var items = new List<Item> { new Item { Name = "Some", SellIn = 10, Quality = 10 } };
             var app = new GildedRose(items, new QualityUpdaterResolver());
+            
             app.UpdateQuality();
 
             Assert.AreEqual(9, items[0].Quality);
@@ -21,6 +22,7 @@ namespace csharp
         {
             var items = new List<Item> { new Item { Name = "Some", SellIn = 0, Quality = 10 } };
             var app = new GildedRose(items, new QualityUpdaterResolver());
+            
             app.UpdateQuality();
 
             Assert.AreEqual(8, items[0].Quality);
@@ -31,6 +33,7 @@ namespace csharp
         {
             var items = new List<Item> { new Item { Name = "Some", SellIn = 1, Quality = 0 } };
             var app = new GildedRose(items, new QualityUpdaterResolver());
+            
             app.UpdateQuality();
 
             Assert.AreEqual(0, items[0].Quality);
@@ -41,6 +44,7 @@ namespace csharp
         {
             var items = new List<Item> { new Item { Name = "Aged Brie", SellIn = 0, Quality = 50 } };
             var app = new GildedRose(items, new QualityUpdaterResolver());
+            
             app.UpdateQuality();
 
             Assert.AreEqual(50, items[0].Quality);
@@ -51,6 +55,7 @@ namespace csharp
         {
             var items = new List<Item> { new Item { Name = "Sulfuras", SellIn = 10, Quality = 0 } };
             var app = new GildedRose(items, new QualityUpdaterResolver());
+            
             app.UpdateQuality();
 
             Assert.AreEqual(80, items[0].Quality);
@@ -61,6 +66,7 @@ namespace csharp
         {
             var items = new List<Item> { new Item { Name = "Sulfuras", SellIn = 10, Quality = 80 } };
             var app = new GildedRose(items, new QualityUpdaterResolver());
+            
             app.UpdateQuality();
 
             Assert.AreEqual(80, items[0].Quality);
@@ -71,6 +77,7 @@ namespace csharp
         {
             var items = new List<Item> { new Item { Name = "Aged Brie", SellIn = 5, Quality = 0 } };
             var app = new GildedRose(items, new QualityUpdaterResolver());
+            
             app.UpdateQuality();
 
             Assert.AreEqual(1, items[0].Quality);
@@ -81,6 +88,7 @@ namespace csharp
         {
             var items = new List<Item> { new Item { Name = "Backstage passes", SellIn = 11, Quality = 0 } };
             var app = new GildedRose(items, new QualityUpdaterResolver());
+            
             app.UpdateQuality();
 
             Assert.AreEqual(1, items[0].Quality);
@@ -91,6 +99,7 @@ namespace csharp
         {
             var items = new List<Item> { new Item { Name = "Backstage passes", SellIn = 10, Quality = 5 } };
             var app = new GildedRose(items, new QualityUpdaterResolver());
+            
             app.UpdateQuality();
 
             Assert.AreEqual(7, items[0].Quality);
@@ -101,6 +110,7 @@ namespace csharp
         {
             var items = new List<Item> { new Item { Name = "Backstage passes", SellIn = 5, Quality = 5 } };
             var app = new GildedRose(items, new QualityUpdaterResolver());
+            
             app.UpdateQuality();
 
             Assert.AreEqual(8, items[0].Quality);
@@ -111,6 +121,7 @@ namespace csharp
         {
             var items = new List<Item> { new Item { Name = "Backstage passes", SellIn = 0, Quality = 5 } };
             var app = new GildedRose(items, new QualityUpdaterResolver());
+            
             app.UpdateQuality();
 
             Assert.AreEqual(0, items[0].Quality);
@@ -121,6 +132,7 @@ namespace csharp
         {
             var items = new List<Item> { new Item { Name = "Conjured", SellIn = 5, Quality = 5 } };
             var app = new GildedRose(items, new QualityUpdaterResolver());
+            
             app.UpdateQuality();
 
             Assert.AreEqual(3, items[0].Quality);
@@ -131,9 +143,30 @@ namespace csharp
         {
             var items = new List<Item> { new Item { Name = "Conjured", SellIn = -1, Quality = 5 } };
             var app = new GildedRose(items, new QualityUpdaterResolver());
+            
             app.UpdateQuality();
 
             Assert.AreEqual(1, items[0].Quality);
+        }
+
+        [Test(Description = "While passed null as collection")]
+        public void UpdateQuality_NullCollectionPassed_NotFail()
+        {
+            List<Item> items = null;
+            var app = new GildedRose(items, new QualityUpdaterResolver());
+            
+            app.UpdateQuality();
+        }
+
+        [Test(Description = "While passed Item with null Name")]
+        public void UpdateQuality_ItemWithNullAsName_HandledAsDefaultItem()
+        {
+            var items = new List<Item> { new Item { Name = null, SellIn = 5, Quality = 5 } };
+            var app = new GildedRose(items, new QualityUpdaterResolver());
+            
+            app.UpdateQuality();
+            
+            Assert.AreEqual(4, items[0].Quality);
         }
     }
 }
